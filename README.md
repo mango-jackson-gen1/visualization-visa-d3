@@ -15,13 +15,10 @@ Then open http://localhost:8000/index-withData.html
 ## Files
 
 - `index-withData.html` — the page. Loads D3, topojson-client, and `script2.js`.
-- `script2.js` — the working version. Draws the map and colors it from the data.
-- `base.css` / `custom.css` — reset and layout.
+- `script.js` — the working version. Draws the map and colors it from the data.
 - `data/cleaned_refusal.csv` — the data the map reads.
 - `data/2025-us-b-visa-denial-rate.csv` — the raw source, refusal rates as percent strings.
 - `data/reivew.ipynb` — the notebook that cleaned the raw file into `cleaned_refusal.csv`.
-
-`script.js` and `script3.js` are earlier drafts kept for reference. `script.js` was an experiment coloring by a different dataset (healthy life expectancy); `script3.js` is just console logging used to figure out the TopoJSON structure. Neither is loaded by the page.
 
 ## How it works
 
