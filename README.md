@@ -1,4 +1,6 @@
 # Visa Denial Rate by Country
+July 19, 2026
+Lede Data Journalism
 
 A world map that colors each country by its 2025 US B-visa refusal rate. Built with D3 and TopoJSON. Darker red means a higher denial rate; countries with no data are gray. Hover a country to see its name and rate.
 
