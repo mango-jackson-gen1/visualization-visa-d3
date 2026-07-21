@@ -1,8 +1,7 @@
 // reference: https://observablehq.com/@d3/world-choropleth/2
-// Code runs TOP TO BOTTOM, so each thing must be defined BEFORE it is used:
 //   1) map math  ->  2) create svg  ->  3) load map  ->  4) draw
 
-// (Your data-loading step, for later — still commented out)
+//Step 0 Load in Data
 // const data = (await d3.csv("data/cleaned_refusal.csv")).map(d => ({
 //   id:   (d.iso_num || "").padStart(3, "0"),  // JOIN KEY — matches feature.id "004"
 //   name: d.name_short,                        // label for the tooltip
@@ -17,6 +16,7 @@ const width = 928;
 const marginTop = 46;
 const height = width / 2 + marginTop;
 
+// Step 1: define the type of project math/ eg if region of Africa is bigger or a general stretched world
 // projection = flattens the round globe onto the flat screen.
 // path       = uses that projection to turn each country into an SVG "d" string.
 // Fit the projection.
@@ -25,7 +25,7 @@ const height = width / 2 + marginTop;
 // path wraps the projection and does the whole outline, producing the final d string an SVG <path> needs
 const projection = d3.geoEqualEarth().fitExtent([[2, marginTop + 2], [width - 2, height]], {type: "Sphere"});
 const path = d3.geoPath(projection);
-// window.projection = projection;   // debug helper: lets you type `projection` in the console
+//window.projection = projection;   // debug helper: lets you type `projection` in the console
 // window.path = path;               // debug helper: lets you type `path` in the console
 
 // ── STEP 2: create the SVG container ON the page
@@ -42,8 +42,8 @@ const svg = d3.select('#my-svg-chart')
 const world = await d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
 
 const countries = topojson.feature(world, world.objects.countries);
-window.countries = countries;   // debug: lets the console see `countries`
-//console.log('countries loaded:', countries.features.length);   // should be ~177
+//window.countries = countries;   // debug: lets the console see `countries`
+console.log('countries loaded:', countries.features);   // should be ~177
 
 // ── STEP 3.2: load the csv 
 const data = (await d3.csv("data/cleaned_refusal.csv")).map(d => ({
@@ -57,7 +57,7 @@ const data = (await d3.csv("data/cleaned_refusal.csv")).map(d => ({
 // valuemap = a Map from ISO number  ->  refusal rate, e.g. "004" -> 0.6325.
 // valuemap.get(id) to find ANY country's rate instantly.
 const valuemap = new Map(data.map(d => [d.id, d.rate]));
-window.valuemap = valuemap;   // ADD THIS — now the console can see it
+//window.valuemap = valuemap;   // ADD THIS — now the console can see it
 
 // color = a function that turns a rate (0..~0.63) into a color.
 // scaleSequential auto-figures the input range from d3.extent(...the rates).
